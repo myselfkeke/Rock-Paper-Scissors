@@ -4,17 +4,35 @@ document
     playGame("rock");
   });
 
+document.addEventListener("keydown", (e) => {
+  if (e.key.toLowerCase() === "r") {
+    playGame("rock");
+  }
+});
+
 document
   .querySelector(".js-paper-move-btn")
   .addEventListener("click", function () {
     playGame("paper");
   });
 
+document.addEventListener("keydown", (e) => {
+  if (e.key.toLowerCase() === "p") {
+    playGame("paper");
+  }
+});
+
 document
   .querySelector(".js-scissors-move-btn")
   .addEventListener("click", function () {
     playGame("scissors");
   });
+
+document.addEventListener("keydown", (e) => {
+  if (e.key.toLowerCase() === "s") {
+    playGame("scissors");
+  }
+});
 
 const autoPlayBtnEl = document.querySelector(".auto-play-button");
 autoPlayBtnEl.addEventListener("click", function () {
@@ -30,6 +48,12 @@ let score = JSON.parse(localStorage.getItem("scoreTrial")) || {
 let isAutoPlaying = false;
 let intervalId;
 
+document.addEventListener("keydown", (e) => {
+  if (e.key.toLowerCase() === "a" || e.key === " ") {
+    autoPlay();
+  }
+});
+
 function autoPlay() {
   if (!isAutoPlaying) {
     intervalId = setInterval(function () {
@@ -37,7 +61,7 @@ function autoPlay() {
       playGame(pickPlayerMove);
     }, 1000);
     isAutoPlaying = true;
-    autoPlayBtnEl.innerText = "Stop Auto Play";
+    autoPlayBtnEl.innerText = "Stop Playing";
   } else {
     clearInterval(intervalId);
     isAutoPlaying = false;
@@ -98,7 +122,16 @@ function pickComputerMove() {
 }
 
 document.querySelector(".reset-score-button").addEventListener("click", () => {
-  resetScore();
+  if (confirm("Are you sure want to reset the score?")) {
+    resetScore();
+  }
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Backspace") {
+    if (confirm("Are you sure want to reset the score?")) {
+      resetScore();
+    }
+  }
 });
 
 function resetScore() {
